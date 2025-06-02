@@ -1,4 +1,4 @@
-# EHR Contrastive Learning and Subtyping
+# AD and PD Subtyping using EHR
 
 This repository contains code to apply contrastive learning on Electronic Health Record (EHR) data and generate patient subtypes. The approach leverages a Transformer-based model fine-tuned using a contrastive loss on sequential EHR data. The code computes patient embeddings, clusters them using KMeans, and calculates the optimal k using prediction strength.
 
