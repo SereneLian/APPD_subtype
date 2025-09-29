@@ -1,4 +1,5 @@
-# AD and PD Subtyping using EHR
+# Subtyping of Alzheimer’s disease and Parkinson’s disease based on pre-diagnostic clinical information: a deep learning study with external validation, prognostic relevance, and genetic explanation
+
 
 This repository contains code to apply contrastive learning on Electronic Health Record (EHR) data and generate patient subtypes. The approach leverages a Transformer-based model fine-tuned using a contrastive loss on sequential EHR data. The code computes patient embeddings, clusters them using KMeans, and calculates the optimal k using prediction strength.
 
@@ -6,11 +7,30 @@ This repository contains code to apply contrastive learning on Electronic Health
 
 ## Overview
 
-- **finetune.py**  
-  Fine-tunes a Transformer-based model on EHR data using contrastive learning.
+### Step 1: Generate cohort and EHR data
+- **`cohort_generation.py`** — Generate a disease cohort based on your requirements.  
+  Examples are in the `cohort/` folder.  
+  *Note: Due to privacy restrictions, the datasets used in our experiments cannot be shared.*
 
-- **evaluate.py**  
-  Generates patient subtypes by computing embeddings with the trained model, clustering them via KMeans, and producing visualizations (e.g., t-SNE plots).
+  - **`customize.py`** — Contains case definitions and related logic. Edit as needed.  
+  - **`code_identify.ipynb`** — (Updated Sep 2025) Inspect and summarise the distribution of disease-definition codes.
+
+- **`ehr_generation.py`** — After cohort creation, build pre-diagnosis EHR histories (model inputs).  
+  Example EHRs are provided in `toy_data_EHR/`.  
+  *Note: The production EHR data cannot be shared due to privacy restrictions.*
+
+---
+
+### Step 2: Train and evaluate the clustering model
+- **`finetune.py`** — Fine-tune a Transformer-based model on EHR data using contrastive learning.  
+- **`evaluate.py`** — Compute patient embeddings with the trained model, cluster them with K-Means, and generate visualisations (e.g., t-SNE).
+
+---
+
+### Step 3: Analyse clinical profiles and explore genetic signals
+- **`analyze.py`** — Produce survival curves, hospitalisation rates, pre-disease heatmaps, and symptom summaries by cluster.  
+- **`SNP_AD.ipynb`** — Explore cluster-specific genetic differences (SNP-level analyses).
+
 
 ## Requirements
 
@@ -56,7 +76,5 @@ After training, generate patient subtypes using the evaluation script:
 ```bash
 python evaluate.py --disease AD --cohort_dir AD_data --model_name AD_model --experiment_dir AD --k 5 --fold_idx 4 --device 0 
 ```
-
-This code is adapted from https://github.com/Zhengxian-Fan/HF-Subtyping
 
 
